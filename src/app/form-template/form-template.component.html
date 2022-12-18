@@ -1,0 +1,143 @@
+<div class="container">
+  {{ model | json }}
+  <div class="row">
+    <div class="col-12 col-sm-6 col-md-3">
+      <form #heroForm="ngForm" (submit)="handleSubmit(heroForm)">
+        <div class="form-group ng-untouched ng-pristine ng-valid">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            [(ngModel)]="model.name"
+            required
+            #name="ngModel"
+          />
+          <div
+            class="alert alert-danger"
+            [hidden]="name.valid || name.pristine"
+          >
+            Name is required
+          </div>
+        </div>
+
+        <div class="form-group ng-untouched ng-pristine ng-valid">
+          <label for="alterEgo">Alter Ego</label>
+          <input
+            type="text"
+            class="form-control"
+            id="alterEgo"
+            name="alterEgo"
+            [(ngModel)]="model.alterEgo"
+            required
+            #alterEgo="ngModel"
+          />
+          <div
+            class="alert alert-danger"
+            [hidden]="alterEgo.valid || alterEgo.pristine"
+          >
+            Alter Ego is required
+          </div>
+        </div>
+
+        <div class="form-group ng-untouched ng-pristine ng-valid">
+          <label for="power">Hero Power</label>
+          <select
+            class="form-control"
+            id="power"
+            name="power"
+            [(ngModel)]="model.power"
+            required
+            #power="ngModel"
+          >
+            <option *ngFor="let pow of powers" [value]="pow">{{ pow }}</option>
+          </select>
+          <div
+            class="alert alert-danger"
+            [hidden]="power.valid || power.pristine"
+          >
+            Power is required
+          </div>
+        </div>
+
+        <div class="form-group ng-untouched ng-pristine ng-valid">
+          <input
+            type="checkbox"
+            id="isActive"
+            class="form-check-input"
+            name="isActive"
+            [(ngModel)]="model.isActive"
+          />
+          <label class="form-check-label" for="isActive"
+            >Is hero still active?</label
+          >
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="!heroForm.form.valid"
+        >
+          New Hero
+        </button>
+        <button
+          type="button"
+          class="btn btn-default"
+          (click)="heroForm.reset()"
+        >
+          Reset
+        </button>
+      </form>
+    </div>
+    <br />
+    <br />
+    <br />
+    <!-- DISPLAY -->
+    <!--     <div class="col-12 col-sm-6 col-md-4">
+      <ng-container
+        *ngIf="heroList.length; then showHeros; else noHeros"
+      ></ng-container>
+      <ng-template #showHeros>
+        <ul *ngFor="let hero of heroList; let idx = index">
+          <li>
+            {{ idx }}__
+            <strong>{{ hero.isActive ? 'Active' : 'NOT Active' }}</strong
+            >: {{ hero.name }}__{{ hero.alterEgo }} -- {{ hero.power }}
+          </li>
+        </ul>
+      </ng-template>
+      <ng-template #noHeros>There is no heros to show!</ng-template>
+    </div>
+  </div>
+</div> -->
+
+    <!-- TABLE -->
+    <div class="col-12 col-sm-6 col-md-4">
+      <ng-container
+        *ngIf="heroList.length; then showHeros; else noHeros"
+      ></ng-container>
+      <ng-template #showHeros>
+        <table>
+          <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Alter Ego</th>
+            <th>Power</th>
+            <th>Active</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let hero of heroList; let idx = index">
+              <td>{{ idx }}</td>
+              <td>{{ hero.name }}</td>
+              <td>{{ hero.alterEgo }}</td>
+              <td>{{ hero.power }}</td>
+              <td>{{ hero.isActive ? 'YES' : 'NO' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+      <ng-template #noHeros>There is no heros to show!</ng-template>
+    </div>
+  </div>
+</div>
